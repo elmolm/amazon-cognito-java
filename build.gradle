@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'eclipse'
+    id 'io.franzbecker.gradle-lombok' version '1.14'
+    
+}
+
+repositories {
+    jcenter()
+}
+
+lombok { // optional: values below are the defaults
+    version = "1.16.20"
+    sha256 = "c5178b18caaa1a15e17b99ba5e4023d2de2ebc18b58cde0f5a04ca4b31c10e6d"
+}
+
+dependencies {
+    implementation 'com.google.guava:guava:26.0-jre'
+    implementation 'com.amazonaws:aws-java-sdk-cognitoidp:1.11.467'
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
+	
+	compileOnly('org.projectlombok:lombok')
+	annotationProcessor('org.projectlombok:lombok')
+
+    testImplementation 'junit:junit:4.12'
+}
+
+mainClassName = 'amazon.cognito.java.App'
