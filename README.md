@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/elmolm/amazon-cognito-java..svg?branch=master)](https://travis-ci.org/elmolm/amazon-cognito-java)
+[![Build Status](https://travis-ci.org/elmolm/amazon-cognito-java.svg?branch=master)](https://travis-ci.org/elmolm/amazon-cognito-java)
 ![Java](https://img.shields.io/badge/java-orange.svg)
 [![GitHub Issues](https://img.shields.io/github/issues/elmolm/amazon-cognito-java.svg)](https://github.com/elmolm/amazon-cognito-java/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/elmolm/amazon-cognito-java.svg)](elmolm/amazon-cognito-java/pulls)
