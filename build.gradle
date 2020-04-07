@@ -1,28 +1,18 @@
 plugins {
     id 'java'
     id 'application'
-    id 'eclipse'
-    id 'io.franzbecker.gradle-lombok' version '1.14'
-    
+    id 'io.freefair.lombok' version '5.0.0-rc6'
 }
 
 repositories {
     jcenter()
 }
 
-lombok { // optional: values below are the defaults
-    version = "1.16.20"
-    sha256 = "c5178b18caaa1a15e17b99ba5e4023d2de2ebc18b58cde0f5a04ca4b31c10e6d"
-}
-
 dependencies {
-    implementation 'com.google.guava:guava:26.0-jre'
-    implementation 'com.amazonaws:aws-java-sdk-cognitoidp:1.11.467'
-    implementation 'org.slf4j:slf4j-api:1.7.25'
-    implementation 'org.slf4j:slf4j-simple:1.7.25'
-	
-	compileOnly('org.projectlombok:lombok')
-	annotationProcessor('org.projectlombok:lombok')
+    implementation 'com.google.guava:guava:28.2-jre'
+    implementation 'com.amazonaws:aws-java-sdk-cognitoidp:1.11.759'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
 
     testImplementation 'junit:junit:4.12'
 }
