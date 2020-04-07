@@ -81,7 +81,7 @@ public class AmazonCognitoConnector {
 			try {
 				listUsersRequest.setPaginationToken(result.getPaginationToken());
 				result = identityProvider.listUsers(listUsersRequest);
-
+				userTypeList = result.getUsers();
 				users.addAll(userTypeList.stream().map(u -> convertCognitoUser(u)).collect(Collectors.toList()));
 			} catch (TooManyRequestsException e) {
 				/** cognito hard rate limit for "list users": 5 per second. */
