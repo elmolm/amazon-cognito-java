@@ -19,12 +19,11 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * @author Florian Schmidt https://elmland.blog
+ * @author Florian Schmidt <a href="https://elmland.blog">...</a>
  */
 @Builder
 @Data
 public class MyUserModel {
-	
-	private String id;
-	private String firstname;
+    private String id;
+    private String firstname;
 }

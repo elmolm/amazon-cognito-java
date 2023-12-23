@@ -1,20 +1,25 @@
 plugins {
     id 'java'
     id 'application'
-    id 'io.freefair.lombok' version '6.6.1'
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
-sourceCompatibility = '17'
+sourceCompatibility = '21'
 
 dependencies {
-    implementation 'com.google.guava:guava:31.1-jre'
-    implementation 'com.amazonaws:aws-java-sdk-cognitoidp:1.12.376'
-    implementation 'org.slf4j:slf4j-api:2.0.5'
-    implementation 'org.slf4j:slf4j-simple:2.0.5'
+    implementation 'com.google.guava:guava:33.0-jre'
+    implementation 'com.amazonaws:aws-java-sdk-cognitoidp:1.12.471'
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
 mainClassName = 'blog.elmland.amazon.cognito.App'

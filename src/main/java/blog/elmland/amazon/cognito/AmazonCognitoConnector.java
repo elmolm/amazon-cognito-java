@@ -32,17 +32,17 @@ import com.amazonaws.services.cognitoidp.model.UserType;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Florian Schmidt https://elmland.blog
+ * @author Florian Schmidt <a href="https://elmland.blog">...</a>
  */
 @Slf4j
 public class AmazonCognitoConnector {
 
-	private final static String AWS_ACCESS_KEY = "<YOUR AWS ACCESS KEY>";
-	private final static String AWS_SECRET_KEY = "<YOUR AWS SECRET KEY>";
-	private final static String AWS_USER_POOL_ID = "<YOUR USER POOL ID>";
-	private final static String AWS_REGION = "<YOUR AWS REGION>";
+	private static final String AWS_ACCESS_KEY = "<YOUR AWS ACCESS KEY>";
+	private static final String AWS_SECRET_KEY = "<YOUR AWS SECRET KEY>";
+	private static final String AWS_USER_POOL_ID = "<YOUR USER POOL ID>";
+	private static final String AWS_REGION = "<YOUR AWS REGION>";
 
-	private AWSCognitoIdentityProvider identityProvider;
+	private final AWSCognitoIdentityProvider identityProvider;
 
 	public AmazonCognitoConnector() {
 		BasicAWSCredentials creds = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY);
@@ -55,25 +55,25 @@ public class AmazonCognitoConnector {
 	}
 
 	public List<MyUserModel> listAllUsers(int limit) {
-		/** check limit 0<limit<=60 "Maximum number of users to be returned" */
+		/* check limit 0<limit<=60 "Maximum number of users to be returned" */
 		if (limit <= 0 || limit > 60) {
 			throw new IllegalArgumentException("limit must have a value less than or equal to 60");
 		}
 
-		List<MyUserModel> users = new ArrayList<>();
-
-		/** prepare cognito list users request */
+        /* prepare cognito list users request */
 		ListUsersRequest listUsersRequest = new ListUsersRequest();
 		listUsersRequest.withUserPoolId(AWS_USER_POOL_ID);
 		listUsersRequest.setLimit(limit);
 
-		/** send list users request */
+		/* send list users request */
 		ListUsersResult result = identityProvider.listUsers(listUsersRequest);
 
 		List<UserType> userTypeList = result.getUsers();
-		users.addAll(userTypeList.stream().map(u -> convertCognitoUser(u)).collect(Collectors.toList()));
+        List<MyUserModel> users = userTypeList.stream()
+				.map(this::convertCognitoUser)
+				.collect(Collectors.toList());
 
-		/**
+		/*
 		 * as long as there is a pagination token in the list users result => resend
 		 * list users request with pagination token.
 		 */
@@ -82,9 +82,11 @@ public class AmazonCognitoConnector {
 				listUsersRequest.setPaginationToken(result.getPaginationToken());
 				result = identityProvider.listUsers(listUsersRequest);
 				userTypeList = result.getUsers();
-				users.addAll(userTypeList.stream().map(u -> convertCognitoUser(u)).collect(Collectors.toList()));
+				users.addAll(userTypeList.stream()
+						.map(this::convertCognitoUser)
+						.toList());
 			} catch (TooManyRequestsException e) {
-				/** cognito hard rate limit for "list users": 5 per second. */
+				/* cognito hard rate limit for "list users": 5 per second. */
 				try {
 					log.warn("Too many requests", e);
 					Thread.sleep(200);

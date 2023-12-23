@@ -15,16 +15,19 @@
  */
 package blog.elmland.amazon.cognito;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Florian Schmidt https://elmland.blog
+ * @author Florian Schmidt <a href="https://elmland.blog">...</a>
  */
 @Slf4j
 public class App {
 
-	public static void main(String[] args) {
-		new AmazonCognitoConnector().listAllUsers(60).forEach(user -> log.info("{}", user));
-	}
+    public static void main(String[] args) {
+        new AmazonCognitoConnector()
+                .listAllUsers(60)
+                .forEach(user -> log.info("{}", user));
+    }
 
 }
